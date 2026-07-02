@@ -37,6 +37,8 @@
   .ann{background:var(--darkest);color:#C7D0DE;text-align:center;font-size:.86rem;font-weight:600;padding:9px 16px;border-bottom:1px solid var(--line)}
   .ann b{color:var(--gold)}
   .nav{position:sticky;top:0;z-index:20;background:rgba(13,18,28,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  html{scroll-behavior:smooth}
+  #join{scroll-margin-top:72px}
   .nav .container{display:flex;align-items:center;justify-content:space-between;height:66px}
   .btn{border:0;cursor:pointer;font:inherit;font-weight:700;color:#fff;background:var(--green);padding:12px 20px;border-radius:10px;text-decoration:none;display:inline-block;transition:background .15s,transform .12s}
   .btn:hover{background:var(--green-h)}.btn:active{transform:translateY(1px)}
@@ -391,6 +393,15 @@
 
 <script>
   var ENDPOINT='https://gmqysuxbjucyiqfdddzu.supabase.co/functions/v1/ghlwaitlist';
+  // in-page anchor links (Join the waitlist, Pricing) -> smooth scroll to target
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click',function(e){
+      var id=a.getAttribute('href');
+      if(!id||id.length<2) return;
+      var t=document.querySelector(id);
+      if(t){ e.preventDefault(); t.scrollIntoView({behavior:'smooth',block:'start'}); history.pushState(null,'',id); }
+    });
+  });
   document.querySelectorAll('.form').forEach(function(f){
     f.addEventListener('submit',async function(e){
       e.preventDefault();
