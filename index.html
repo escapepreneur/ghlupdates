@@ -1,0 +1,392 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>GHL Updates — the HighLevel changelog, published as your own</title>
+<meta name="description" content="GHL Updates turns the HighLevel changelog into on-brand posts and a weekly client email for your agency — automatically, with no mention of HighLevel.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23121316'/%3E%3Crect x='7' y='9' width='4.6' height='14' rx='1.5' fill='%233B8AF0'/%3E%3Crect x='13.7' y='9' width='4.6' height='14' rx='1.5' fill='%232FBF57'/%3E%3Crect x='20.4' y='9' width='4.6' height='14' rx='1.5' fill='%23F5B301'/%3E%3C/svg%3E">
+</head><body>
+<style>
+  :root{
+    --bg:#121316; --bg-2:#17191E; --surface:#1E2127; --surface-2:#262A32; --darkest:#0B0C0F;
+    --line:rgba(255,255,255,.09); --line-2:rgba(255,255,255,.15);
+    --tx:#ECEEF2; --mut:#9CA2AD;
+    --blue:#3B8AF0; --green:#1FA24D; --green-h:#25B85A; --green-t:#57D67B; --gold:#F5B301;
+    --new-bg:rgba(65,194,90,.16); --new:#79E093; --imp-bg:rgba(59,138,240,.16); --imp:#8FBEFF;
+    --fix-bg:rgba(245,179,1,.16); --fix:#F5CB5C; --neg-bg:rgba(240,110,90,.15); --neg:#F0937F;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  .wrap{font-family:var(--sans);color:var(--tx);background:var(--bg);line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap p{margin:0}
+  a{color:inherit}
+  .container{max-width:1120px;margin:0 auto;padding:0 26px}
+  .eyebrow{font-size:.76rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--green-t)}
+  h1,h2,h3{margin:0;letter-spacing:-.025em;text-wrap:balance;font-weight:800;line-height:1.06;color:#fff}
+
+  .logo{font-weight:900;letter-spacing:-.02em;font-size:1.28rem;display:inline-flex;align-items:baseline;gap:.42em}
+  .logo .ghl .g{color:var(--blue)}.logo .ghl .h{color:var(--green)}.logo .ghl .l{color:var(--gold)}
+  .logo .up{font-weight:700;letter-spacing:.24em;text-transform:uppercase;font-size:.62em;color:#fff}
+
+  .ann{background:var(--darkest);color:#C7D0DE;text-align:center;font-size:.86rem;font-weight:600;padding:9px 16px;border-bottom:1px solid var(--line)}
+  .ann b{color:var(--gold)}
+  .nav{position:sticky;top:0;z-index:20;background:rgba(13,18,28,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav .container{display:flex;align-items:center;justify-content:space-between;height:66px}
+  .btn{border:0;cursor:pointer;font:inherit;font-weight:700;color:#fff;background:var(--green);padding:12px 20px;border-radius:10px;text-decoration:none;display:inline-block;transition:background .15s,transform .12s}
+  .btn:hover{background:var(--green-h)}.btn:active{transform:translateY(1px)}
+  .navcta{font-size:.9rem;padding:9px 16px}
+
+  .hero{background:radial-gradient(1100px 500px at 78% -8%,rgba(37,184,90,.15),transparent 60%),linear-gradient(180deg,var(--bg-2),var(--bg));border-bottom:1px solid var(--line);padding:66px 0 76px}
+  .hero .grid{display:grid;grid-template-columns:1.12fr .88fr;gap:52px;align-items:center}
+  .hero h1{font-size:clamp(2.35rem,5vw,3.85rem)}
+  .hero .lede{margin-top:20px;font-size:1.14rem;color:var(--mut);max-width:38ch;line-height:1.6}
+  .hero .eyebrow{margin-bottom:16px}
+  .form{margin-top:28px;display:flex;flex-wrap:wrap;gap:10px;max-width:470px}
+  .form input{flex:1 1 220px;min-width:0;background:var(--surface);border:1px solid var(--line-2);color:#fff;font:inherit;font-size:1rem;padding:13px 15px;border-radius:10px}
+  .form input::placeholder{color:#78849A}
+  .micro{margin-top:13px;font-size:.86rem;color:var(--mut);display:flex;align-items:center;gap:8px}
+  .micro .d{width:6px;height:6px;border-radius:50%;background:var(--green)}
+  .ok{display:none;margin-top:24px;background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--green);border-radius:10px;padding:16px 18px;max-width:470px}
+  .ok strong{color:#fff}.ok p{color:var(--mut);font-size:.92rem;margin-top:3px}
+  .live .form{display:none}.live .ok{display:block}
+
+  .xform{display:flex;flex-direction:column;align-items:stretch}
+  .panel{border-radius:13px;padding:17px 18px}
+  .panel .tag{font-size:.66rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase;display:block;margin-bottom:11px}
+  .raw{background:var(--darkest);border:1px solid var(--line-2);font-family:var(--mono)}
+  .raw .tag{color:#8797AE}
+  .raw .ln{font-size:.8rem;color:#C4CEDD;line-height:1.85;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .raw .mut{color:#5E6E86}.raw .strike{color:#7C8AA0;text-decoration:line-through;text-decoration-color:var(--gold)}
+  .arrow{align-self:center;margin:-3px 0;width:38px;height:38px;border-radius:50%;background:var(--green);color:#fff;display:grid;place-items:center;font-size:1.15rem;font-weight:800;z-index:2;box-shadow:0 8px 22px rgba(31,162,77,.5)}
+  .post{background:#fff;border:1px solid var(--line);box-shadow:0 26px 55px -20px rgba(0,0,0,.6)}
+  .post .tag{color:var(--green)}
+  .post h4{margin:0;font-size:1.1rem;font-weight:800;letter-spacing:-.02em;line-height:1.22;color:#14181F}
+  .post .by{margin-top:9px;font-size:.8rem;color:#5B6472;display:flex;align-items:center;gap:8px}
+  .post .av{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--green))}
+  .post .chip{display:inline-block;margin-top:13px;font-size:.7rem;font-weight:700;color:#1C7A31;background:#E6F5EA;padding:3px 10px;border-radius:20px}
+
+  .section{padding:80px 0}
+  .alt{background:var(--bg-2)}
+  .head{max-width:42ch}
+  .head h2{font-size:clamp(1.85rem,3.4vw,2.6rem);margin-top:14px}
+  .head p{margin-top:14px;font-size:1.08rem;color:var(--mut)}
+
+  .prob{display:grid;grid-template-columns:1fr .82fr;gap:50px;align-items:center}
+  .cost{margin-top:22px;display:grid;gap:10px}
+  .cost .row{display:flex;gap:12px;align-items:flex-start;font-size:1rem;color:var(--mut)}
+  .cost .row .x{flex:none;width:22px;height:22px;border-radius:6px;background:var(--neg-bg);color:var(--neg);display:grid;place-items:center;font-weight:800;font-size:.85rem;margin-top:2px}
+  .cost .row b{color:var(--tx)}
+  .stream{border:1px solid var(--line);border-radius:14px;background:var(--surface);overflow:hidden}
+  .stream .sh{padding:13px 18px;border-bottom:1px solid var(--line);font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);display:flex;justify-content:space-between}
+  .stream .sh b{color:var(--green-t)}
+  .stream ul{list-style:none;margin:0;padding:6px 0}
+  .stream li{padding:9px 18px;font-size:.92rem;display:flex;align-items:center;gap:11px;color:var(--tx)}
+  .stream li .nd{width:6px;height:6px;border-radius:50%;background:var(--green);flex:none}
+  .stream li:nth-child(n+4){color:var(--mut)}
+  .stream .fade{padding:11px 18px;font-family:var(--mono);font-size:.8rem;color:var(--mut);border-top:1px dashed var(--line-2)}
+
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:50px}
+  .step{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:26px 24px}
+  .step .n{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;font-weight:800;color:#fff;font-family:var(--mono);font-size:.95rem}
+  .step:nth-child(1) .n{background:var(--blue)}.step:nth-child(2) .n{background:var(--green)}.step:nth-child(3) .n{background:var(--gold);color:#3A2B00}
+  .step h3{margin-top:15px;font-size:1.2rem;letter-spacing:-.02em}
+  .step p{margin-top:10px;color:var(--mut);font-size:.97rem}
+
+  .grid-b{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:50px}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px 22px}
+  .card h3{font-size:1.08rem;letter-spacing:-.02em}
+  .card p{margin-top:8px;color:var(--mut);font-size:.95rem}
+  .card .k{width:32px;height:32px;border-radius:8px;display:grid;place-items:center;font-weight:800;font-family:var(--mono);font-size:.9rem;margin-bottom:14px}
+  .card:nth-child(3n+1) .k{background:var(--imp-bg);color:var(--imp)}
+  .card:nth-child(3n+2) .k{background:var(--new-bg);color:var(--new)}
+  .card:nth-child(3n) .k{background:var(--fix-bg);color:var(--fix)}
+
+  .plans{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:840px;margin:44px auto 0;align-items:start}
+  .plan{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:30px 26px 28px;text-align:center;position:relative}
+  .plan.best{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold),0 30px 60px -30px rgba(0,0,0,.7)}
+  .badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--gold);color:#3A2B00;font-size:.68rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:5px 13px;border-radius:20px;white-space:nowrap}
+  .term{font-size:.76rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:var(--mut)}
+  .amount{display:flex;align-items:baseline;justify-content:center;gap:9px;margin-top:14px}
+  .amount .now{font-size:2.8rem;font-weight:800;letter-spacing:-.03em;color:#fff}
+  .amount .per{color:var(--mut);font-weight:600}
+  .amount .was{color:#6E7A8E;text-decoration:line-through;text-decoration-color:#4A5468;font-size:1.1rem;font-weight:700}
+  .pnote{margin-top:8px;color:var(--mut);font-size:.9rem}
+  .plan .form{margin:22px 0 0;max-width:none;flex-direction:column;gap:9px}
+  .plan .form input{flex:1 1 auto;width:100%}
+  .plan .btn{width:100%}
+  .plan .ok{margin-top:20px;max-width:none;text-align:left}
+  .includes{max-width:840px;margin:22px auto 0;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px 26px}
+  .inc-h{font-size:.74rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);margin-bottom:14px;text-align:center}
+  .incl{list-style:none;margin:0 auto;padding:0;max-width:640px;display:grid;grid-template-columns:1fr 1fr;gap:11px}
+  .incl li{padding-left:26px;position:relative;font-size:.94rem;color:#D3DAE6}
+  .incl li::before{content:"✓";position:absolute;left:0;top:0;color:var(--green);font-weight:800}
+  .kicker-line{margin-top:18px;font-size:.9rem;color:var(--mut);text-align:center}
+
+  footer{background:var(--darkest);color:var(--mut);padding:34px 0;border-top:1px solid var(--line)}
+  footer .container{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:.86rem}
+
+  :root{--ex:#6A4CE0}
+  .trust{background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:20px 0}
+  .trust .container{text-align:center}
+  .trust p{font-size:1.02rem;color:var(--mut)}.trust b{color:var(--tx)}
+  .demo{display:grid;grid-template-columns:1.05fr .95fr;gap:24px;margin-top:44px;align-items:start}
+  .dcap{font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);margin-bottom:11px}
+  .frame{border-radius:13px;overflow:hidden;border:1px solid var(--line-2);background:#fff;box-shadow:0 30px 60px -30px rgba(0,0,0,.65)}
+  .bbar{display:flex;align-items:center;gap:7px;padding:10px 13px;background:#E9E8E3}
+  .bbar i{width:10px;height:10px;border-radius:50%;background:#C9C7BF;display:block}
+  .bbar .u{flex:1;background:#fff;border-radius:6px;font-size:.72rem;color:#7A8090;padding:5px 10px;text-align:center;font-family:var(--mono)}
+  .msite{background:#fff;color:#14181F}
+  .exhd{background:var(--ex);color:#fff;padding:15px 18px}
+  .exhd .eb{font-weight:800;letter-spacing:-.01em;font-size:1rem;display:flex;align-items:center;gap:8px}
+  .exhd .eb .mk{width:20px;height:20px;border-radius:6px;background:#fff;color:var(--ex);display:grid;place-items:center;font-weight:900;font-size:.8rem}
+  .exhd h5{margin:11px 0 0;font-size:1.15rem;font-weight:800;letter-spacing:-.02em;color:#fff}
+  .exbody{padding:6px 18px 16px}
+  .ex-e{padding:13px 0;border-bottom:1px solid #EEF1F4}.ex-e:last-child{border-bottom:0}
+  .ex-e .m{display:flex;align-items:center;gap:9px;margin-bottom:6px}
+  .ex-e .tg{font-size:.62rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:20px;background:#E6F5EA;color:#1C7A31}
+  .ex-e .tg.imp{background:#E7F0FD;color:#155BB5}
+  .ex-e .dt{font-size:.72rem;color:#8A93A2;font-family:var(--mono)}
+  .ex-e h6{margin:0;font-size:.98rem;font-weight:800;letter-spacing:-.01em;color:#14181F}
+  .ex-e p{margin-top:4px;color:#5B6472;font-size:.86rem}
+  .emeta{padding:11px 15px;background:#fff;border-bottom:1px solid #EEF1F4;font-size:.78rem}
+  .emeta .r{display:flex;gap:7px;padding:1px 0}.emeta .r .l{color:#8A93A2;width:44px;flex:none}.emeta .r .v{color:#14181F}.emeta .subj{font-weight:700}
+  .ecta2{text-align:center;padding:16px 0 4px}
+  .ecta2 a{background:var(--ex);color:#fff;text-decoration:none;font-weight:700;font-size:.85rem;padding:9px 18px;border-radius:8px;display:inline-block}
+  .efoot2{padding:14px 4px 2px;color:#8A93A2;font-size:.72rem;text-align:center}
+  .founder{max-width:760px;margin:0 auto;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:30px 32px;display:flex;gap:22px;align-items:flex-start}
+  .founder .av{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--green));flex:none}
+  .founder .q{font-size:1.1rem;line-height:1.6;color:var(--tx)}
+  .founder .who{margin-top:14px;font-size:.9rem;color:var(--mut)}.founder .who b{color:var(--tx)}
+  .faq{max-width:860px;margin:44px auto 0;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .qa{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px 22px}
+  .qa h4{font-size:1rem;font-weight:800;letter-spacing:-.01em}.qa p{margin-top:8px;color:var(--mut);font-size:.93rem}
+  footer .container{display:block}
+  .foot-grid{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;align-items:flex-start}
+  .foot-brand{max-width:36ch}.foot-brand p{margin-top:10px;font-size:.86rem;color:var(--mut)}
+  .foot-col{display:flex;flex-direction:column;gap:7px;font-size:.86rem}
+  .foot-col .h{font-weight:800;color:var(--tx);text-transform:uppercase;letter-spacing:.1em;font-size:.68rem;margin-bottom:3px}
+  .foot-col a{color:var(--mut);text-decoration:none}.foot-col a:hover{color:var(--tx)}
+  .foot-legal{margin-top:26px;padding-top:16px;border-top:1px solid var(--line);font-size:.78rem;color:#6E7A8E;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+  @media (max-width:860px){.demo,.faq{grid-template-columns:1fr}.founder{flex-direction:column}}
+  @keyframes rise{to{opacity:1;transform:none}}
+  .reveal{opacity:0;transform:translateY(13px);animation:rise .65s cubic-bezier(.2,.7,.2,1) forwards}
+  .reveal.d2{animation-delay:.08s}.reveal.d3{animation-delay:.16s}.reveal.d4{animation-delay:.24s}
+  a:focus-visible,input:focus-visible,button:focus-visible{outline:2px solid var(--green-t);outline-offset:2px}
+  input:focus-visible{outline-offset:0}
+  @media (max-width:860px){.hero .grid,.prob{grid-template-columns:1fr;gap:38px}.steps,.grid-b,.plans,.incl{grid-template-columns:1fr}.hero{padding:44px 0 56px}.section{padding:56px 0}}
+  @media (prefers-reduced-motion:reduce){.reveal{animation:none;opacity:1;transform:none}}
+</style>
+
+<div class="wrap">
+  <div class="ann">Founding offer — sign up in <b>July</b> and lock in <b>50% off for life</b>.</div>
+  <nav class="nav"><div class="container">
+    <span class="logo"><span class="ghl"><span class="g">G</span><span class="h">H</span><span class="l">L</span></span><span class="up">Updates</span></span>
+    <a class="btn navcta" href="#join">Join the waitlist</a>
+  </div></nav>
+
+  <header class="hero"><div class="container"><div class="grid">
+    <div>
+      <div class="eyebrow reveal">For HighLevel agencies</div>
+      <h1 class="reveal d2">Your clients are paying for features they don't even know exist.</h1>
+      <p class="lede reveal d3">HighLevel ships updates almost every day — but your clients only hear about the handful you find time to write up. GHL Updates turns every release into an on-brand post and a weekly email to your clients. Automatically. With zero mention of HighLevel. You look on top of it all; they stay.</p>
+      <form class="form reveal d4" id="f1" data-plan="hero">
+        <input type="email" required placeholder="you@youragency.com" aria-label="Work email">
+        <button class="btn" type="submit">Get founding access</button>
+      </form>
+      <div class="micro reveal d4"><span class="d"></span>50% off for life if you join in July · one email, no spam</div>
+      <div class="ok"><strong>You're on the list.</strong><p>We'll be in touch as founding spots open — with your 50% locked in.</p></div>
+    </div>
+    <div class="xform reveal d3" aria-hidden="true">
+      <div class="panel raw">
+        <span class="tag">The HighLevel changelog</span>
+        <div class="ln"><span class="mut">2 Jul ·</span> WhatsApp Calling <span class="mut">(GA)</span></div>
+        <div class="ln"><span class="mut">contact:</span> <span class="strike">@gohighlevel.com</span></div>
+        <div class="ln"><span class="mut">by</span> <span class="strike">HighLevel</span> · Product</div>
+      </div>
+      <div class="arrow">↓</div>
+      <div class="panel post">
+        <span class="tag">Your post + weekly email</span>
+        <h4>WhatsApp Calling Is Now Live in Your Account</h4>
+        <div class="by"><span class="av"></span>Your Agency · Today</div>
+        <span class="chip">New</span>
+      </div>
+    </div>
+  </div></div></header>
+
+  <section class="trust"><div class="container">
+    <p>The white-label update feature <b>agencies keep asking HighLevel for</b> — now built, and running live inside a real agency.</p>
+  </div></section>
+
+  <section class="section"><div class="container prob">
+    <div class="head">
+      <div class="eyebrow">The problem</div>
+      <h2>Keeping clients in the loop is a job nobody has time for.</h2>
+      <p>HighLevel ships something new almost every day — far more than any agency can write up. So most of it never reaches your clients, and the platform (and you) start to look static.</p>
+      <div class="cost">
+        <div class="row"><span class="x">✕</span><div><b>Write them yourself</b> — hours every week you don't have.</div></div>
+        <div class="row"><span class="x">✕</span><div><b>Hire it out</b> — hundreds a month for a writer who still needs briefing.</div></div>
+        <div class="row"><span class="x">✕</span><div><b>Skip it</b> — the platform looks static, and so do you. Clients churn.</div></div>
+      </div>
+    </div>
+    <div class="stream">
+      <div class="sh"><span>This month, in your account</span><b>26 updates</b></div>
+      <ul>
+        <li><span class="nd"></span>WhatsApp Calling, now generally available</li>
+        <li><span class="nd"></span>Ask AI arrives on the mobile app</li>
+        <li><span class="nd"></span>Notification settings get their own tab</li>
+        <li><span class="nd"></span>Email AI for agency accounts</li>
+        <li><span class="nd"></span>Google Ads reporting widgets</li>
+      </ul>
+      <div class="fade">+ 21 more your clients never heard about…</div>
+    </div>
+  </div></section>
+
+  <section class="section alt"><div class="container">
+    <div class="head"><div class="eyebrow">How it works</div><h2>Set it once. It runs itself.</h2></div>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><h3>We watch the changelog</h3><p>Every HighLevel release, caught automatically, twice a day. Nothing for you to monitor.</p></div>
+      <div class="step"><div class="n">2</div><h3>It becomes your content</h3><p>Rewritten in your voice and scrubbed of every HighLevel tell — names, logos and emails blurred out of the screenshots.</p></div>
+      <div class="step"><div class="n">3</div><h3>Published &amp; emailed</h3><p>Approve it (or let it auto-run) and it hits your updates page and this week's client email. Done.</p></div>
+    </div>
+  </div></section>
+
+  <section class="section"><div class="container">
+    <div class="head" style="max-width:none;text-align:center;margin:0 auto"><div class="eyebrow">See it in action</div><h2>This is what your clients get.</h2><p style="max-width:54ch;margin-left:auto;margin-right:auto">A branded updates page and a weekly email — shown here for an example agency. Your brand, your colours, no HighLevel anywhere.</p></div>
+    <div class="demo">
+      <div>
+        <div class="dcap">Their updates page</div>
+        <div class="frame">
+          <div class="bbar"><i></i><i></i><i></i><span class="u">updates.meridian.co</span></div>
+          <div class="msite">
+            <div class="exhd"><div class="eb"><span class="mk">M</span>Meridian</div><h5>What's new</h5></div>
+            <div class="exbody">
+              <div class="ex-e"><div class="m"><span class="tg">New</span><span class="dt">2 Jul</span></div><h6>WhatsApp calling, built right in</h6><p>Call clients over WhatsApp straight from your inbox.</p></div>
+              <div class="ex-e"><div class="m"><span class="tg">New</span><span class="dt">1 Jul</span></div><h6>Lock down shared documents</h6><p>Choose exactly who can open the files you share.</p></div>
+              <div class="ex-e"><div class="m"><span class="tg imp">Improved</span><span class="dt">28 Jun</span></div><h6>Campaign stats on your phone</h6><p>Check email performance without the laptop.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="dcap">Their weekly client email</div>
+        <div class="frame">
+          <div class="emeta"><div class="r"><span class="l">From</span><span class="v">Meridian &lt;updates@meridian.co&gt;</span></div><div class="r"><span class="l">Subj</span><span class="v subj">What's new in Meridian this week</span></div></div>
+          <div class="msite">
+            <div class="exhd" style="text-align:center"><div class="eb" style="justify-content:center"><span class="mk">M</span>Meridian</div></div>
+            <div class="exbody">
+              <p style="font-size:.9rem;color:#14181F;padding:8px 0 2px">A few improvements landed in your account this week —</p>
+              <div class="ex-e"><h6>WhatsApp calling, built right in</h6><p>Call clients over WhatsApp from your inbox. <span style="color:var(--ex);font-weight:700">Read more →</span></p></div>
+              <div class="ex-e"><h6>Lock down shared documents</h6><p>Decide who can open the files you share. <span style="color:var(--ex);font-weight:700">Read more →</span></p></div>
+              <div class="ecta2"><a href="#">See all updates →</a></div>
+              <div class="efoot2">Meridian · You're getting this because you're a client · Unsubscribe</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div></section>
+
+  <section class="section alt"><div class="container">
+    <div class="head"><div class="eyebrow">What you get</div><h2>Content that looks like you built the platform.</h2></div>
+    <div class="grid-b">
+      <div class="card"><div class="k">✕</div><h3>White-labeled, always</h3><p>No "HighLevel", no "GoHighLevel", no giveaways in the images. It reads as yours.</p></div>
+      <div class="card"><div class="k">↻</div><h3>Genuinely hands-off</h3><p>Runs on its own. No writing, no chasing the changelog, no copy-paste.</p></div>
+      <div class="card"><div class="k">✎</div><h3>Page + weekly email</h3><p>A branded updates page, plus an automatic weekly digest to your clients' inboxes.</p></div>
+      <div class="card"><div class="k">✓</div><h3>You stay in control</h3><p>Approve, edit in plain English, or auto-publish. Your call, per update.</p></div>
+      <div class="card"><div class="k">↗</div><h3>Live in minutes</h3><p>We set it up with you — connect your account, confirm your brand, done.</p></div>
+      <div class="card"><div class="k">◷</div><h3>Never behind again</h3><p>The moment HighLevel ships, your post and email are already waiting.</p></div>
+    </div>
+  </div></section>
+
+  <section class="section"><div class="container">
+    <div class="founder">
+      <div class="av"></div>
+      <div>
+        <p class="q">"HighLevel ships so fast that keeping our own clients in the loop was a losing battle. So we built this to do it for us — and it's run our agency's client updates ever since. GHL Updates is that same system, opened up to other agencies."</p>
+        <p class="who"><b>Karen King</b> · Founder — built inside a working HighLevel agency, not a lab</p>
+      </div>
+    </div>
+  </div></section>
+
+  <section class="section alt" id="join"><div class="container">
+    <div class="head" style="max-width:none;text-align:center;margin:0 auto"><div class="eyebrow">Founding offer</div><h2>Join in July, lock in 50% — for life.</h2></div>
+    <div class="plans">
+      <div class="plan">
+        <div class="term">Monthly</div>
+        <div class="amount"><span class="was">$197</span><span class="now">$98.50</span><span class="per">/mo</span></div>
+        <div class="pnote">50% off, locked in for life.</div>
+        <form class="form" id="f2" data-plan="monthly">
+          <input type="email" required placeholder="you@youragency.com" aria-label="Work email">
+          <button class="btn" type="submit">Get founding access</button>
+        </form>
+        <div class="ok"><strong>You're on the list.</strong><p>We'll be in touch as founding spots open — 50% locked in.</p></div>
+      </div>
+      <div class="plan best">
+        <div class="badge">Best value · 2 months free</div>
+        <div class="term">Annual</div>
+        <div class="amount"><span class="was">$1,970</span><span class="now">$985</span><span class="per">/yr</span></div>
+        <div class="pnote">Save $197 a year, locked in for life.</div>
+        <form class="form" id="f3" data-plan="annual">
+          <input type="email" required placeholder="you@youragency.com" aria-label="Work email">
+          <button class="btn" type="submit">Get founding access</button>
+        </form>
+        <div class="ok"><strong>You're on the list.</strong><p>We'll be in touch as founding spots open — 50% locked in.</p></div>
+      </div>
+    </div>
+    <div class="includes">
+      <div class="inc-h">Every plan includes</div>
+      <ul class="incl">
+        <li>Every HighLevel update, in your voice</li>
+        <li>Your branded updates page</li>
+        <li>Automatic weekly client email</li>
+        <li>Screenshots cleaned of HighLevel tells</li>
+        <li>Review hub — approve, edit, or auto</li>
+        <li>We set it up with you</li>
+      </ul>
+      <p class="kicker-line">Less than one freelance blog post a month — running your entire client-update channel.</p>
+    </div>
+  </div></section>
+
+  <section class="section"><div class="container">
+    <div class="head" style="max-width:none;text-align:center;margin:0 auto"><div class="eyebrow">Questions</div><h2>The things agencies ask.</h2></div>
+    <div class="faq">
+      <div class="qa"><h4>Will my clients know it's HighLevel?</h4><p>No. Every name, logo and email is stripped or blurred out of the images. It reads as your platform, end to end.</p></div>
+      <div class="qa"><h4>Do I need a blog?</h4><p>No. We host your branded updates page and send the weekly email. Publishing to your own site or community is an optional extra.</p></div>
+      <div class="qa"><h4>Can I check things before they go out?</h4><p>Yes. Everything lands in your hub to approve or edit in plain English — or switch on auto and let it run hands-off.</p></div>
+      <div class="qa"><h4>What if HighLevel changes something?</h4><p>We keep the engine current. You never touch the plumbing — you just get the finished updates.</p></div>
+      <div class="qa"><h4>How long does setup take?</h4><p>Minutes. We set it up with you — connect your account, confirm your brand, and you're live.</p></div>
+      <div class="qa"><h4>Can I cancel?</h4><p>Anytime. And your founding price stays locked for as long as you're subscribed.</p></div>
+    </div>
+  </div></section>
+
+  <footer><div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <span class="logo"><span class="ghl"><span class="g">G</span><span class="h">H</span><span class="l">L</span></span><span class="up">Updates</span></span>
+        <p>Turn the HighLevel changelog into your agency's content — automatically. Your brand, your clients, hands-off.</p>
+      </div>
+      <div class="foot-col"><span class="h">Product</span><a href="#join">Pricing</a><a href="#join">Join the waitlist</a></div>
+      <div class="foot-col"><span class="h">Company</span><a href="mailto:hello@ghlupdates.com">hello@ghlupdates.com</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div>
+    </div>
+    <div class="foot-legal"><span>© 2026 GHL Updates. All rights reserved.</span><span>Independent product — not affiliated with or endorsed by HighLevel / GoHighLevel.</span></div>
+  </div></footer>
+</div>
+
+<script>
+  var ENDPOINT='https://gmqysuxbjucyiqfdddzu.supabase.co/functions/v1/ghlwaitlist';
+  document.querySelectorAll('.form').forEach(function(f){
+    f.addEventListener('submit',async function(e){
+      e.preventDefault();
+      var input=f.querySelector('input'), btn=f.querySelector('button');
+      var email=(input.value||'').trim(); if(!email) return;
+      var label=btn.textContent; btn.disabled=true; btn.textContent='…';
+      try{
+        var r=await fetch(ENDPOINT,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({email:email,plan:(f.getAttribute('data-plan')||'waitlist')})});
+        if(r.ok){ f.parentElement.classList.add('live'); }
+        else { btn.disabled=false; btn.textContent=label; alert('Something went wrong — please try again in a moment.'); }
+      }catch(err){ btn.disabled=false; btn.textContent=label; alert('Something went wrong — please try again in a moment.'); }
+    });
+  });
+</script>
+</body></html>
