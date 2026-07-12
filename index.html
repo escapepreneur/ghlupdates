@@ -143,6 +143,10 @@
   .demo .msite{flex:1}
   .dcap{font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);margin-bottom:11px}
   .frame{border-radius:13px;overflow:hidden;border:1px solid var(--line-2);background:#fff;box-shadow:0 30px 60px -30px rgba(0,0,0,.65)}
+  .postview{flex:1;min-height:400px;overflow:hidden;background:#fff}
+  .postview img{width:100%;height:auto;display:block;animation:postscroll 34s ease-in-out infinite alternate}
+  @keyframes postscroll{0%,6%{transform:translateY(0)}94%,100%{transform:translateY(calc(-100% + 420px))}}
+  @media (prefers-reduced-motion:reduce){.postview img{animation:none}}
   .beforewrap{max-width:720px;margin:44px auto 0}
   .beforewrap .frame img{display:block;width:100%;height:auto}
   .xform{max-width:720px;margin:20px auto 0;text-align:center}
@@ -273,17 +277,10 @@
     <div class="xform reveal"><b>GHL Updates turns it into your brand ↓</b><span>Rewritten in your voice, stripped of every HighLevel tell.</span></div>
     <div class="demo">
       <div>
-        <div class="dcap">Their updates page</div>
+        <div class="dcap">A real post, top to bottom</div>
         <div class="frame">
-          <div class="bbar"><i></i><i></i><i></i><span class="u">updates.meridian.co</span></div>
-          <div class="msite">
-            <div class="exhd"><div class="eb"><span class="mk">M</span>Meridian</div><h5>What's new</h5></div>
-            <div class="exbody">
-              <div class="ex-e"><div class="m"><span class="tg">New</span><span class="dt">10 Jul</span></div><h6>Connect Todoist to your workflows</h6><p>If you and your team live in Todoist, you now have a proper two-way link between it and your account. <span style="color:var(--ex);font-weight:700">Read more →</span></p></div>
-              <div class="ex-e"><div class="m"><span class="tg">New</span><span class="dt">8 Jul</span></div><h6>WhatsApp calling, built right in</h6><p>Call clients over WhatsApp straight from your inbox. <span style="color:var(--ex);font-weight:700">Read more →</span></p></div>
-              <div class="ex-e"><div class="m"><span class="tg imp">Improved</span><span class="dt">2 Jul</span></div><h6>Lock down shared documents</h6><p>Choose exactly who can open the files you share. <span style="color:var(--ex);font-weight:700">Read more →</span></p></div>
-            </div>
-          </div>
+          <div class="bbar"><i></i><i></i><i></i><span class="u">updates.youragency.com</span></div>
+          <div class="postview"><img src="example-post.png" alt="An example update post, rewritten in your brand voice with screenshots cleaned of HighLevel tells" width="1312" height="12013"></div>
         </div>
       </div>
       <div>
