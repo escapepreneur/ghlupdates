@@ -205,12 +205,10 @@
       <div class="eyebrow reveal">For HighLevel agencies</div>
       <h1 class="reveal d2">Your clients are paying for features they don't even know exist.</h1>
       <p class="lede reveal d3">HighLevel ships new updates every day — but your clients only hear about the handful you find time to write up. GHL Updates turns every release into an on-brand post and a weekly email to your clients. Automatically. With zero mention of HighLevel. You look on top of it all; they stay.</p>
-      <form class="form reveal d4" id="f1" data-plan="hero">
-        <input type="email" required placeholder="you@youragency.com" aria-label="Work email">
-        <button class="btn" type="submit">Get founding access</button>
-      </form>
-      <div class="micro reveal d4"><span class="d"></span>More than 50% off for life if you join in July · one email, no spam</div>
-      <div class="ok"><strong>You're on the list.</strong><p>We'll be in touch as founding spots open — with your rate locked in.</p></div>
+      <div class="reveal d4" style="margin-top:28px">
+        <a class="btn" href="#join">See the two founding options ↓</a>
+      </div>
+      <div class="micro reveal d4"><span class="d"></span>More than 50% off for life if you join in July</div>
     </div>
     <div class="xform reveal d3" aria-hidden="true">
       <div class="panel raw">
@@ -334,9 +332,10 @@
     <div class="plans">
       <div class="plan">
         <div class="term">Monthly</div>
-        <div class="amount"><span class="was">$197</span><span class="now">$97</span><span class="per">/mo</span></div>
+        <div class="amount"><span class="was">$97</span><span class="now">$47</span><span class="per">/mo</span></div>
         <div class="pnote">More than 50% off, locked in for life.</div>
         <form class="form" id="f2" data-plan="monthly">
+          <input type="text" placeholder="Agency name (optional)" aria-label="Agency name" data-field="agency">
           <input type="email" required placeholder="you@youragency.com" aria-label="Work email">
           <button class="btn" type="submit">Get founding access</button>
         </form>
@@ -345,9 +344,10 @@
       <div class="plan best">
         <div class="badge">Best value · 2 months free</div>
         <div class="term">Annual</div>
-        <div class="amount"><span class="was">$1,970</span><span class="now">$970</span><span class="per">/yr</span></div>
-        <div class="pnote">Save $194 a year (2 months free), locked in for life.</div>
+        <div class="amount"><span class="was">$970</span><span class="now">$470</span><span class="per">/yr</span></div>
+        <div class="pnote">Save $94 a year (2 months free), locked in for life.</div>
         <form class="form" id="f3" data-plan="annual">
+          <input type="text" placeholder="Agency name (optional)" aria-label="Agency name" data-field="agency">
           <input type="email" required placeholder="you@youragency.com" aria-label="Work email">
           <button class="btn" type="submit">Get founding access</button>
         </form>
@@ -408,11 +408,14 @@
   document.querySelectorAll('.form').forEach(function(f){
     f.addEventListener('submit',async function(e){
       e.preventDefault();
-      var input=f.querySelector('input'), btn=f.querySelector('button');
-      var email=(input.value||'').trim(); if(!email) return;
+      var emailInput=f.querySelector('input[type="email"]');
+      var agencyInput=f.querySelector('input[data-field="agency"]');
+      var btn=f.querySelector('button');
+      var email=((emailInput&&emailInput.value)||'').trim(); if(!email) return;
+      var agency=((agencyInput&&agencyInput.value)||'').trim();
       var label=btn.textContent; btn.disabled=true; btn.textContent='…';
       try{
-        var r=await fetch(ENDPOINT,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({email:email,plan:(f.getAttribute('data-plan')||'waitlist')})});
+        var r=await fetch(ENDPOINT,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({email:email,agency:agency,plan:(f.getAttribute('data-plan')||'waitlist')})});
         if(r.ok){ f.parentElement.classList.add('live'); }
         else { btn.disabled=false; btn.textContent=label; alert('Something went wrong — please try again in a moment.'); }
       }catch(err){ btn.disabled=false; btn.textContent=label; alert('Something went wrong — please try again in a moment.'); }
