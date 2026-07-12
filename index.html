@@ -335,6 +335,7 @@
         <div class="amount"><span class="was">$97</span><span class="now">$47</span><span class="per">/mo</span></div>
         <div class="pnote">More than 50% off, locked in for life.</div>
         <form class="form" id="f2" data-plan="monthly">
+          <input type="text" required placeholder="Your name" aria-label="Your name" data-field="name">
           <input type="text" placeholder="Agency name (optional)" aria-label="Agency name" data-field="agency">
           <input type="email" required placeholder="you@youragency.com" aria-label="Work email">
           <button class="btn" type="submit">Get founding access</button>
@@ -347,6 +348,7 @@
         <div class="amount"><span class="was">$970</span><span class="now">$470</span><span class="per">/yr</span></div>
         <div class="pnote">Save $94 a year (2 months free), locked in for life.</div>
         <form class="form" id="f3" data-plan="annual">
+          <input type="text" required placeholder="Your name" aria-label="Your name" data-field="name">
           <input type="text" placeholder="Agency name (optional)" aria-label="Agency name" data-field="agency">
           <input type="email" required placeholder="you@youragency.com" aria-label="Work email">
           <button class="btn" type="submit">Get founding access</button>
@@ -410,12 +412,14 @@
       e.preventDefault();
       var emailInput=f.querySelector('input[type="email"]');
       var agencyInput=f.querySelector('input[data-field="agency"]');
+      var nameInput=f.querySelector('input[data-field="name"]');
       var btn=f.querySelector('button');
       var email=((emailInput&&emailInput.value)||'').trim(); if(!email) return;
       var agency=((agencyInput&&agencyInput.value)||'').trim();
+      var name=((nameInput&&nameInput.value)||'').trim();
       var label=btn.textContent; btn.disabled=true; btn.textContent='…';
       try{
-        var r=await fetch(ENDPOINT,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({email:email,agency:agency,plan:(f.getAttribute('data-plan')||'waitlist')})});
+        var r=await fetch(ENDPOINT,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({email:email,name:name,agency:agency,plan:(f.getAttribute('data-plan')||'waitlist')})});
         if(r.ok){ f.parentElement.classList.add('live'); }
         else { btn.disabled=false; btn.textContent=label; alert('Something went wrong — please try again in a moment.'); }
       }catch(err){ btn.disabled=false; btn.textContent=label; alert('Something went wrong — please try again in a moment.'); }
