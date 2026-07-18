@@ -121,8 +121,9 @@
   .pnote{margin-top:8px;color:var(--mut);font-size:.9rem}
   .plan .form{margin:22px 0 0;max-width:none;flex-direction:column;gap:9px}
   .plan .form input{flex:1 1 auto;width:100%}
-  .plan .btn{width:100%}
+  .plan .btn{width:100%;margin-top:22px}
   .plan .ok{margin-top:20px;max-width:none;text-align:left}
+  .checkout-err{margin-top:10px;font-size:.86rem;color:var(--neg);min-height:1.2em}
   .includes{max-width:840px;margin:22px auto 0;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px 26px}
   .inc-h{font-size:.74rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);margin-bottom:14px;text-align:center}
   .incl{list-style:none;margin:0 auto;padding:0;max-width:640px;display:grid;grid-template-columns:1fr 1fr;gap:11px}
@@ -201,7 +202,7 @@
   <div class="ann">Founding offer - <b>limited spots</b>, lock in <b>more than 50% off for life</b>.</div>
   <nav class="nav"><div class="container">
     <img class="logo-img" src="logo.png" alt="GHL Updates" width="786" height="492">
-    <a class="btn navcta" href="#join">Join the waitlist</a>
+    <a class="btn navcta" href="#join">Get started</a>
   </div></nav>
 
   <header class="hero"><div class="container"><div class="grid">
@@ -319,26 +320,16 @@
         <div class="term">Monthly</div>
         <div class="amount"><span class="was">$97</span><span class="now">$47</span><span class="per">/mo</span></div>
         <div class="pnote">More than 50% off, locked in for life.</div>
-        <form class="form" id="f2" data-plan="monthly">
-          <input type="text" required placeholder="Your name" aria-label="Your name" data-field="name">
-          <input type="text" placeholder="Agency name (optional)" aria-label="Agency name" data-field="agency">
-          <input type="email" required placeholder="you@youragency.com" aria-label="Work email">
-          <button class="btn" type="submit">Get founding access</button>
-        </form>
-        <div class="ok"><strong>You're on the list.</strong><p>We'll be in touch as founding spots open - your rate locked in.</p></div>
+        <button class="btn checkout-btn" type="button" data-plan="founding_monthly">Get founding access</button>
+        <div class="checkout-err"></div>
       </div>
       <div class="plan best">
         <div class="badge">Best value · 2 months free</div>
         <div class="term">Annual</div>
         <div class="amount"><span class="was">$970</span><span class="now">$470</span><span class="per">/yr</span></div>
         <div class="pnote">Save $94 a year (2 months free), locked in for life.</div>
-        <form class="form" id="f3" data-plan="annual">
-          <input type="text" required placeholder="Your name" aria-label="Your name" data-field="name">
-          <input type="text" placeholder="Agency name (optional)" aria-label="Agency name" data-field="agency">
-          <input type="email" required placeholder="you@youragency.com" aria-label="Work email">
-          <button class="btn" type="submit">Get founding access</button>
-        </form>
-        <div class="ok"><strong>You're on the list.</strong><p>We'll be in touch as founding spots open - your rate locked in.</p></div>
+        <button class="btn checkout-btn" type="button" data-plan="founding_annual">Get founding access</button>
+        <div class="checkout-err"></div>
       </div>
     </div>
     <div class="includes">
@@ -374,7 +365,7 @@
 
         <p>Turn the HighLevel changelog into your agency's content - automatically. Your brand, your clients, hands-off.</p>
       </div>
-      <div class="foot-col"><span class="h">Product</span><a href="#join">Pricing</a><a href="#join">Join the waitlist</a></div>
+      <div class="foot-col"><span class="h">Product</span><a href="#join">Pricing</a><a href="#join">Get started</a></div>
       <div class="foot-col"><span class="h">Company</span><a href="mailto:hello@ghlupdates.com">hello@ghlupdates.com</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a></div>
     </div>
     <div class="foot-legal"><span>© 2026 Launch Point LLC · GHL Updates. All rights reserved.</span><span>Independent product - not affiliated with or endorsed by HighLevel / GoHighLevel.</span></div>
@@ -382,8 +373,8 @@
 </div>
 
 <script>
-  var ENDPOINT='https://gmqysuxbjucyiqfdddzu.supabase.co/functions/v1/ghlwaitlist';
-  // in-page anchor links (Join the waitlist, Pricing) -> smooth scroll to target
+  var CHECKOUT_ENDPOINT='https://gmqysuxbjucyiqfdddzu.supabase.co/functions/v1/dash?action=checkout';
+  // in-page anchor links (Get started, Pricing) -> smooth scroll to target
   document.querySelectorAll('a[href^="#"]').forEach(function(a){
     a.addEventListener('click',function(e){
       var id=a.getAttribute('href');
@@ -392,22 +383,23 @@
       if(t){ e.preventDefault(); t.scrollIntoView({behavior:'smooth',block:'start'}); history.pushState(null,'',id); }
     });
   });
-  document.querySelectorAll('.form').forEach(function(f){
-    f.addEventListener('submit',async function(e){
-      e.preventDefault();
-      var emailInput=f.querySelector('input[type="email"]');
-      var agencyInput=f.querySelector('input[data-field="agency"]');
-      var nameInput=f.querySelector('input[data-field="name"]');
-      var btn=f.querySelector('button');
-      var email=((emailInput&&emailInput.value)||'').trim(); if(!email) return;
-      var agency=((agencyInput&&agencyInput.value)||'').trim();
-      var name=((nameInput&&nameInput.value)||'').trim();
-      var label=btn.textContent; btn.disabled=true; btn.textContent='…';
+  // pricing card buttons -> real Stripe checkout (Payment Link), created/reused server-side.
+  // Stripe's own hosted page collects name/business name/email/card - no pre-form needed here.
+  document.querySelectorAll('.checkout-btn').forEach(function(btn){
+    btn.addEventListener('click',async function(){
+      var plan=btn.getAttribute('data-plan');
+      var errEl=btn.parentElement.querySelector('.checkout-err');
+      var label=btn.textContent; btn.disabled=true; btn.textContent='Redirecting…';
+      if(errEl) errEl.textContent='';
       try{
-        var r=await fetch(ENDPOINT,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({email:email,name:name,agency:agency,plan:(f.getAttribute('data-plan')||'waitlist')})});
-        if(r.ok){ f.parentElement.classList.add('live'); }
-        else { btn.disabled=false; btn.textContent=label; alert('Something went wrong - please try again in a moment.'); }
-      }catch(err){ btn.disabled=false; btn.textContent=label; alert('Something went wrong - please try again in a moment.'); }
+        var r=await fetch(CHECKOUT_ENDPOINT,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({plan:plan})});
+        var data=await r.json().catch(function(){return {};});
+        if(r.ok && data.url){ window.location.href=data.url; return; }
+        throw new Error((data&&data.error)||'checkout failed');
+      }catch(err){
+        btn.disabled=false; btn.textContent=label;
+        if(errEl) errEl.textContent='Something went wrong - please try again in a moment.';
+      }
     });
   });
 </script>
